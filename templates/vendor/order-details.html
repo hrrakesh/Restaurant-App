@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<!-- Main Section Start -->
+<div class="main-section">
+    <div class="page-section restaurant-detail-image-section" 
+        style="background: url({% if user_profile.cover_photo %}{{ user_profile.cover_photo.url }}{% else %}{% static 'default/default-cover.png' %}{% endif %}) no-repeat scroll 0 0 / cover;">
+        
+        <!-- Container Start -->
+        <div class="container">
+            <!-- Row Start -->
+            <div class="row">
+                <!-- Column Start -->
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="company-info-detail">
+                        <div class="company-info">
+                            <div class="img-holder">
+                                <figure>
+                                    {% if user_profile.profile_picture %}
+                                        <img src="{{ user_profile.profile_picture.url }}" alt="Profile-image">
+                                    {% else %}
+                                        <img src="{% static 'default/default-profile.jpg' %}" alt="Default-profile-image">
+                                    {% endif %}
+                                </figure>
+                            </div>
+
+                            <div class="text-holder">
+                                <span class="restaurant-title">{{ user.first_name }} {{ user.last_name }}</span>
+                                <div class="text">
+                                    <i class="icon-location"></i>
+                                    <p>{{user.city}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Column End -->
+            </div>
+            <!-- Row End -->
+        </div>
+        <!-- Container End -->
+    </div>
+    <div class="page-section account-header buyer-logged-in">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <!-- Load the sidebar here -->
+                    {% include 'includes/vendor-dashboard-sidebar.html' %}
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                    
+                    <div class="user-dashboard loader-holder">
+                        <div class="user-holder">
+                            <div class="container">
+                                <div class="justify-content-center row">
+                                    <div class="col-md-12">
+                                        {% if order %}
+                                        
+                                        <div class="bg-white p-1">
+                                            <img src="{% static 'logo/foodOnlineLogo.png' %}" alt="food-online" width="300">
+                                            
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <h4 class="mt-2 mb-3">Thank you for your order!</h4>
+                            
+                                                </div>
+                                                <div class="col-md-6 text-right">
+                                                    <p class="mb-0"><b class="text-success">{{order.name}}</b></p>
+                                                    <p class="mb-0">{{order.address}}</p>
+                                                    <p class="mb-0">+91- {{order.phone}}</p>
+                                                    <p class="mb-0">{{order.email}}</p>
+                                                    
+                                                </div>
+                                            </div>
+                                                
+                                            
+                                            <h6><span>Review your order details</span></h6>
+                                            <hr>
+                                            <div class="d-flex justify-content-between">
+                                                <div>
+                                                    <span class="d-block"><b>Order Date </b></span><span><b>{{order.created_at}}</b></span>
+                                                </div>
+                                                <div>
+                                                    <span class="d-block"><b>Order No:</b></span><span class="text-danger"><b>{{order.order_number}}</b></span>
+                                                </div>
+                                                <div>
+                                                    <span class="d-block"><b>Payment method:<b></b></span></b><span class="text-danger"><b>{{order.payment.payment_method}}</b></span>
+                                                </div>
+                                                <div>
+                                                    <span class="d-block"><b>Transaction Id:</b></span><span class="text-danger"><b>{{order.payment.transaction_id}}</b></span>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <table class="table">
+                                                <tbody>
+                                                    {% for item in ordered_food %}
+                                                    <tr>
+                                                        <td>
+                                                            <img src="{{item.fooditem.image.url}}" width="60"  alt="Food image ">
+                            
+                                                            
+                                                        </td>
+                                                        <td>
+                                                            <p class="mb-0"><b>{{item.fooditem}}</b></p>
+                                                            <a  class="text-danger" href="{% url 'vendor-details' item.fooditem.vendor.slug%}">{{item.fooditem.vendor.vendor_name}}</a>
+                            
+                                                        </td>
+                                                        <td><b>{{item.quantity}}</b></td>
+                                                        <td><b>${{item.fooditem.price}}</b></td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                            <div class="row mt-5">
+                                                <div class="d-flex justify-content col-md-6">
+                                                    <img src="{% static 'images/paid.png' %}" width="200" alt="">
+                                                </div>
+                                                <div class="col md-6">
+                                                    <ul>
+                            
+                                                        <li style="list-style-type: none;">
+                                                            Subtotal:
+                                                            <span class="price float-right">
+                                                                <span class="currency">$</span>
+                                                                <span id="subtotal"><b>{{subtotal}}</b></span>
+                                                            </span>
+                                                        </li>
+                                                        
+                            
+                                                        {% for tax_name, tax_content in tax_dict.items %}
+                                                            {% for tax_percentage, tax_amount in tax_content.items%}
+                                                                <li style="list-style-type: none;">
+                                                                    {{tax_name}} <small>({{tax_percentage}} %)</small>
+                                                                    <span class="price float-right">
+                                                                        <span class="currency">$</span>
+                                                                        <span id="tax-{{key}}"><b>{{tax_amount}}</b></span>
+                                                                    </span>
+                                                                </li>
+                                                            {% endfor %}
+                                                            
+                                                        {% endfor %}
+                                                        <li style="list-style-type: none; font-weight: 600;">
+                                                            Total
+                                                            <span class="price float-right">
+                                                                <span class="currency">$</span>
+                                                                <span id="total">{{grand_total}}</span>
+                                                            </span>
+                                                        </li>
+                                                        <br><br>
+                                                        {% if order.payment.payment_method == 'Paypal' %}
+                                                        <span class="text-danger"><b>Payment: </b>&nbsp;<img src="{% static 'images/PayPal.png' %}" style="width:100px;" alt="Paypal"></span>
+
+                                                        {% elif order.payment.payment_method == 'RazorPay' %}
+                                                        <span class="text-danger"><b>Payment: </b>&nbsp;<img src="{% static 'images/razorpay_logo.png'%}" style="width:100px;" alt="Paypal"></span>
+                                                        {% endif %}
+                                                    </ul>
+                            
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="d-flex justify-content-between">
+                                                <div>
+                                                    <span class="d-block font-weight-bold text-danger">Thanks for ordering with us❤️</span>
+                                                    <span class="font-weight-bold text-success">Food Online Team @rocky</span>
+                                                </div>
+                                                <div class="d-flex justify-content-end align-items-end">
+                                                    <span class="d-block font-weight-bold text-danger">Need Help?</span>
+                                                    <span class="font-weight-bold text-danger">+91 1234567890</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% else %}
+                                        <div class="text-center p-5">
+                                            <h3 class="shake-animation">We couldn't fetch any details 🙁</h3>
+                                            <br>
+                                            <img src="{% static 'images/why.webp' %} "  style="width:200px;"  alt="">
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Main Section End -->
+
+{% include 'includes/alerts.html' %}
+
+{% endblock %}

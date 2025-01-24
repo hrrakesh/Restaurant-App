@@ -1,0 +1,97 @@
+/* General Button Styles */
+.btn {
+    cursor: pointer;
+    padding: 2px 1.75em;
+    font-size: 12px;
+}
+
+/* Main Search Fancy Input */
+.main-search.fancy .field-holder input[type='text'] {
+    color: #000000 !important;
+}
+
+/* Company Logo Styling */
+.company-logo ul li.has-border figure img {
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    height: 125px;
+    width: 125px;
+}
+
+/* Opening Hours Select Styles */
+#opening_hours select {
+    padding: 5px 10px !important;
+}
+
+/* Add Hour Button */
+.btn.btn-success.add_hour {
+    padding: 7px 15px; /* Adjust padding for smaller size */
+    font-size: 14px; /* Adjust font size */
+    background-color: #1191e1; /* Keep the green color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: -60px; /* Shift button slightly to the left */
+}
+
+/* Add Hour Button Hover */
+.btn.btn-success.add_hour:hover {
+    background-color: #28a745; /* Slightly darker green on hover */
+}
+
+/* Custom CSS for Body and Main Section Text */
+body, .main-section p, .mce-content-body p {
+    font: Normal 14px/24px "Open Sans", sans-serif;
+    letter-spacing: 0px;
+    text-transform: none;
+    color: #515151 !important;
+}
+
+
+
+
+@media only screen and (max-width: 480px) {
+    a.get-start-btn{
+        display: block;
+        margin-top: 15px I !important;
+        margin-left: 0 !important;
+    }
+    .main-search-bar{
+        padding-top: 100px !important;
+        padding-bottom: 50px !important;
+        background-position: left !important;
+
+    }
+
+    .user-dashboard{
+        width: 100% !important;
+    }
+    .menu-itam-holder .quantity{
+        right: 0 !important;
+        margin-top: -30px !important;
+    }
+    button.btn.btn-success.add_hour {
+        margin-left: auto !important;
+        margin-right: 0 !important;
+        display: block !important;
+    }
+
+    .table.opening_hours{
+        width: 100% !important;
+    }
+    .table td{
+        padding: 0.5rem !important;
+    }
+
+  }
+table td, table th{
+    line-height: 1rem  !important;
+}
+
+  /* Additional CSS for Custom Styles (if any) */
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700,800');

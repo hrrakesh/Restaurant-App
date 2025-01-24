@@ -1,0 +1,89 @@
+{% autoescape off %}
+<h1>Hi {{ vendor_name }},</h1>
+
+<h4>You have received a new order! 😊</h4>
+
+  
+<table style="width: 100%; border-collapse: collapse; border: 1px solid #ddd; font-family: Arial, sans-serif; font-size: 14px; margin: 20px 0;">
+    <thead>
+        <tr style="background-color: #f4f4f4; text-align: left; border-bottom: 1px solid #ddd;">
+            <th style="padding: 8px; border-right: 1px solid #ddd;">Vendor Queue of Order</th>
+            <th style="padding: 8px; border-right: 1px solid #ddd;">Order Number</th>
+            <th style="padding: 8px; border-right: 1px solid #ddd;">Transaction ID:</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr style="border-bottom: 1px solid #ddd;">
+            <td style="padding: 8px; border-right: 1px solid #f9f7f7; color: red;">{{ vendor_list_order_queue }}</td>
+            <td style="padding: 8px; border-right: 1px solid #f9f3f3; color: red;">{{ order.order_number }}</td>
+            <td style="padding: 8px; border-right: 1px solid #f5f2f2; color: red;">{{ order.payment.transaction_id }}</td>
+        </tr>
+    </tbody>
+</table>
+<strong>Items</strong><br>
+
+<table style="width: 100%; border-collapse: collapse; border: 1px solid #ddd; font-family: Arial, sans-serif; font-size: 14px; margin: 20px 0;">
+    <thead>
+        <tr style="background-color: #f4f4f4; text-align: left; border-bottom: 1px solid #ddd;">
+            <th style="padding: 8px; border-right: 1px solid #ddd;">#</th>
+            <th style="padding: 8px; border-right: 1px solid #ddd;">Food Item</th>
+            <th style="padding: 8px; border-right: 1px solid #ddd;">Quantity</th>
+            <th style="padding: 8px; border-right: 1px solid #ddd;">Price per Item</th>
+            <th style="padding: 8px;">Total Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for cart_item in cart_items %}
+        <tr style="border-bottom: 1px solid #ddd;">
+            <td style="padding: 8px; border-right: 1px solid #ddd;">{{ forloop.counter }}</td>
+            <td style="padding: 8px; border-right: 1px solid #ddd;">{{ cart_item.food_item }}</td>
+            <td style="padding: 8px; border-right: 1px solid #ddd;">{{ cart_item.food_quantity }}</td>
+            <td style="padding: 8px; border-right: 1px solid #ddd;">${{ cart_item.food_price }}</td>
+            <td style="padding: 8px;">${{ cart_item.food_item_price }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<strong>Price Summary</strong><br>
+
+<table style="width: 100%; border-collapse: collapse; border: 1px solid #ddd; font-family: Arial, sans-serif; font-size: 14px; margin: 20px 0;">
+    <thead>
+        <tr style="background-color: #f4f4f4; text-align: left; border-bottom: 1px solid #ddd;">
+            <th style="padding: 8px; border-right: 1px solid #ddd;">Total Amount</th>
+            <th style="padding: 8px; border-right: 1px solid #ddd;">SGST (7%):</th>
+            <th style="padding: 8px; border-right: 1px solid #ddd;">CGST (9%):</th>
+            <th style="padding: 8px; border-right: 1px solid #ddd;">Total Tax on Your Order:</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr style="border-bottom: 1px solid #ddd;">
+            <td style="padding: 8px; border-right: 1px solid #ddd;">${{ price_value.sum_total }}</td>
+            <td style="padding: 8px; border-right: 1px solid #ddd;">${{ price_value.SGST }}</td>
+            <td style="padding: 8px; border-right: 1px solid #ddd;"> ${{ price_value.CGST }}</td>
+            <td style="padding: 8px; border-right: 1px solid #ddd;"> ${{ price_value.TOTAL_TAX_ON_YOUR_ORDER }} [collected]</td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+
+<div style="border-top: 1px solid #ddd; margin-top: 20px; padding-top: 10px; font-size: 12px; color: #555; font-family: Arial, sans-serif;">
+    <p style="margin: 5px 0; text-align: center;">
+        Need help? Contact <a  style="color: #007BFF; text-decoration: none;">Vendor Support</a> or visit 
+        <a  style="color: #007BFF; text-decoration: none;">Food Online Vendor</a> ❤️
+    </p>
+    <p style="margin: 5px 0; text-align: center;">
+        <strong>Food Online</strong> - [Demo-project!]
+    </p>
+    <p style="margin: 5px 0; text-align: center; color: #888;">
+        <em>Please ignore this email if you have not placed an order.</em>
+    </p>
+    <p style="margin: 10px 0; text-align: center; color: #888;">
+        &copy; 2025 Food Online | All rights reserved.
+    </p>
+</div>
+ 
+
+{% endautoescape %}

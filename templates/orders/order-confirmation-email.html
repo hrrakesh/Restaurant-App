@@ -1,0 +1,91 @@
+{% autoescape off %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .email-header {
+            text-align: center;
+            border-bottom: 2px solid #61dafb;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .email-header h1 {
+            color: #333333;
+            font-size: 24px;
+        }
+        .email-body {
+            color: #555555;
+        }
+        .email-footer {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #dddddd;
+        }
+        .email-footer p {
+            font-size: 14px;
+            color: #888888;
+            margin: 5px 0;
+        }
+        .email-footer a {
+            color: #61dafb;
+            text-decoration: none;
+        }
+        .cta-button {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 10px 20px;
+            background-color: #61dafb;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .cta-button:hover {
+            background-color: #4b9ecf;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="email-header">
+            <h1>Thank You for Your Order, {{user.first_name}}!</h1>
+        </div>
+        <div class="email-body">
+            <p>Your order has been successfully placed. Here are the details:</p>
+            <ul>
+                <li><strong>Order Number:</strong> {{order.order_number}}</li>
+                <li><strong>Transaction ID:</strong> {{order.payment.transaction_id}}</li>
+                <li><strong>Total:</strong> ${{order.total}}</li>
+                <li><strong>Payment Method:</strong> {{order.payment_method}}</li>
+            </ul>
+            <p>We appreciate your trust in us. ❤️</p>
+            <a href="#" class="cta-button">View Your Order</a>
+        </div>
+        <div class="email-footer">
+            <p>Food Online: [Demo Project]</p>
+            <p>If you did not place this order, please ignore this email.</p>
+            <p>© 2025 @rocky | <a href="#">Unsubscribe</a></p>
+        </div>
+    </div>
+</body>
+</html>
+{% endautoescape %}

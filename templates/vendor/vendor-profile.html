@@ -1,0 +1,258 @@
+{% extends 'base.html' %}
+
+{% load static  %}
+{% block content%}
+{% include 'includes/alerts.html' %}
+
+
+
+		<!-- Main Section Start -->
+		<div class="main-section">
+			{% include 'includes/vendor-cover.html' %}
+			<div class="page-section account-header buyer-logged-in">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+							<!-- Load the sidebar here -->
+							 {% include 'includes/vendor-dashboard-sidebar.html' %}
+						</div>
+						<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+							<div class="user-dashboard loader-holder">
+								<div class="user-holder">
+									{% if current_rest_status %}
+									<label class="text-success"><b>Restarurants is Open</b></label>
+									{% else %}
+									<label class="text-danger"><b> Restarurants is Closed</b></label>
+									{% endif%}
+									<h5 class="text-uppercase">Manage Your Restaurant</h2>
+
+									<!-- My Restaurants Form Start -->
+									<form action="{% url 'vendor-profile' %}" method="POST" enctype="multipart/form-data">
+										{% csrf_token %}
+										<div class="form-fields-set">
+											<ul>
+												<li>
+													<div class="row">
+														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															<div class="restaurant-info">
+																<div class="img-holder">
+																	<ul class="foodbakery-gallery-holder">
+																		<li class="gal-img">
+																			<div class="drag-list">
+																				<div class="item-thumb">
+																					{% if profile.profile_picture %}
+																						<img src="{{ vendor.user_profile.profile_picture.url }}" alt="Profile-image">
+																					{% else %}
+																						<img src="{% static 'default/default-profile.jpg' %}" alt="Default-profile-image">
+																					{% endif %}
+																					
+																				</div>
+																			</div>
+																		</li>
+																	</ul>
+																</div>
+																<div class="text-holder">
+																	
+																	<label>Update Logo</label>
+																	<div class="upload-gallery">
+																		{{profile_form.profile_picture}}
+																	</div>
+																</div>
+																<label  class="text-danger">{{profile_form.profile_picture.errors}}</label>
+															</div>
+														</div>
+														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															<div class="restaurant-info">
+																<div class="img-holder">
+																	<ul class="foodbakery-gallery-holder">
+																		<li class="gal-img">
+																			<div class="drag-list">
+																				<div class="item-thumb">
+																					
+																					 {% if profile.cover_photo %}
+																						<img src="{{ vendor.user_profile.cover_photo.url }}" alt="Profile-image">
+																					{% else %}
+																						<img src="{% static 'default/default-cover.png' %}" alt="Default-profile-image">
+																					{% endif %}
+																				</div>
+																			</div>
+																		</li>
+																	</ul>
+																</div>
+																<div class="text-holder">
+																	<label>Update Cover Photo</label>
+																	<div class="upload-gallery">
+																		{{profile_form.cover_photo}}
+																	</div>
+																	
+																</div>
+																<label  class="text-danger">{{profile_form.cover_photo.errors}}</label>
+															</div>
+														</div>
+														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															<div class="restaurant-info">
+																<div class="img-holder">
+																	<ul class="foodbakery-gallery-holder">
+																		<li class="gal-img">
+																			<div class="drag-list">
+																				<div class="item-thumb">
+																					<img class="thumbnail" src="{{vendor.vendor_license.url}}" alt="License">
+																				</div>
+																			</div>
+																		</li>
+																	</ul>
+																</div>
+																<div class="text-holder">
+																	<label>Update License</label>
+																	<div class="upload-gallery">
+																		{{vendor_form.vendor_license}}
+																	</div>
+																	
+																</div>
+																<label  class="text-danger">{{vendor_form.vendor_license.errors}}</label>
+															</div>
+														</div>
+
+														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															<div class="field-holder">
+																<label>Restaurant name *</label>
+																{{vendor_form.vendor_name}}
+															</div>
+														</div>
+														
+
+														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															<div class="field-holder">
+																<label>
+																	Address Line 
+																	<!-- Info Button -->
+																	<button 
+																		type="button" 
+																		style="
+																			border: none; 
+																			background-color: transparent; 
+																			color: #007bff; 
+																			font-size: 1rem; 
+																			cursor: pointer; 
+																			margin-left: 8px;" 
+																		onclick="showSwal()">
+																		i
+																	</button>
+																</label>
+																
+																<!-- Address Field -->
+																{{ profile_form.address }}
+																
+																<small class="text-muted float-right">Powered by Google</small>
+															</div>
+														</div>
+														
+														<!-- SweetAlert Script -->
+														<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+														
+														<script>
+															// Function to show the SweetAlert
+															function showSwal() {
+																Swal.fire({
+																	title: "Location Issue?",
+																	html: `
+																		<p style="text-align: justify;">
+																			<span style="color: red; font-weight: bold;">Note:</span> 
+																			If your location is not showing, please press <strong>Ctrl + Fn + F5</strong> to refresh.
+																		</p>
+																	`,
+																	icon: "question",
+																});
+															}
+														</script>
+														
+
+														
+
+														<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+															<div class="field-holder">
+																<label>Country</label>
+																{{profile_form.country}}
+															</div>
+														</div>
+
+														<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+															<div class="field-holder">
+																<label>State</label>
+																{{profile_form.state}}
+															</div>
+														</div>
+
+														<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+															<div class="field-holder">
+																<label>City</label>
+																{{profile_form.city}}
+															</div>
+														</div>
+
+														<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+															<div class="field-holder">
+																<label>Pincode</label>
+																{{profile_form.pincode}}
+															</div>
+														</div>
+
+														<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+															<div class="field-holder">
+																<label>Latitude</label>
+																{{profile_form.latitude}}
+															</div>
+														</div>
+
+														<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+															<div class="field-holder">
+																<label>Longitude</label>
+																{{profile_form.longitude}}
+															</div>
+														</div>
+														
+														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															<div class="field-holder">
+																
+
+																{% if current_rest_status %}
+																<label class="text-success"><b>Restarurants is Open</b></label>
+																<label class="text-danger"><b> Uncheck the box to close your Restaurant</b></label>
+																{{vendor_form.rest_status}}
+																{% else %}
+																<label class="text-danger"><b> Restarurants is Closed</b></label>
+																<label class="text-success"><b>Check the box to open your Restaurant</b></label>
+																{{vendor_form.rest_status}}
+																{% endif%}
+															</div>
+														</div>
+
+														
+														
+													</div>
+												</li>
+											</ul>
+											<div>
+												<div class="field-holder">
+													<div class="payment-holder input-button-loader">
+														<input  type="submit" value="Update Restaurant">
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+									<!-- My Restaurants Form End -->
+									
+									
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Main Section End -->
+
+
+{% endblock %}

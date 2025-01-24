@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+
+    <title>newsletter</title>
+</head>
+<body>
+    {% if is_success %}
+        <script>
+            
+            swal('Thank you for subscribing❤️','{{ email }}','success').then(function(){
+                            window.location = '/'
+                        })
+        </script>
+    {% else %}
+        {% if exist %}
+            <script>
+                    
+                swal('We have your email😊','','success').then(function(){
+                                window.location = '/'
+                            })
+            </script>
+        {% else %}
+            <script>
+                        
+                swal('Please enter your email at the bottom of the page. 😒','','error').then(function(){
+                                window.location = '/'
+                            })
+            </script>
+        {% endif %}
+    {% endif %}
+</body>
+</html>

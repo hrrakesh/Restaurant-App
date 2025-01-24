@@ -1,0 +1,28 @@
+{% if messages %}
+<div id="notification-container">
+    {% for message in messages %}
+    <div class="alert-notification alert-{{ message.tags }}" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>{{ message }}</strong>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const notifications = document.querySelectorAll('#notification-container .alert-notification');
+        
+        notifications.forEach((notification, index) => {
+            setTimeout(() => {
+                notification.style.top = '65px'; // Slide into view
+            }, index * 3000); // Adjust delay for each notification
+
+            setTimeout(() => {
+                notification.style.top = '-100%'; // Slide out of view
+            }, 3500 + index * 3000); // Hide after animation duration
+        });
+    });
+</script>
+{% endif %}

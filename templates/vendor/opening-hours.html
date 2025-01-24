@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% load static  %}
+{% block content%}
+{% include 'includes/alerts.html' %}
+
+
+
+		<!-- Main Section Start -->
+		<div class="main-section">
+			{% include 'includes/vendor-cover.html' %}
+			<div class="page-section account-header buyer-logged-in">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+							<!-- Load the sidebar here -->
+							 {% include 'includes/vendor-dashboard-sidebar.html' %}
+						</div>
+						<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+							<div class="user-dashboard loader-holder">
+								<div class="user-holder">
+									<h5 class="text-uppercase">Opening Hours</h2>
+									<hr>
+									<!-- My Restaurants Form Start -->
+                                     <a class="btn bg-danger text-white" href="{% url 'vendor-dashboard' %}">
+                                        <i class="fa fa-angle-left" aria-hidden="true">&nbsp;</i>Back
+                                        
+                                    </a>
+                                    <button 
+                                        type="button" 
+                                        style="
+                                            border: none; 
+                                            background-color: transparent; 
+                                            color: #007bff; 
+                                            font-size: 1rem; 
+                                            cursor: pointer; 
+                                            margin-left: 8px;" 
+                                        onclick="showSwal()">
+                                        i
+                                    </button>
+                                    <script>
+                                        // Function to show the SweetAlert
+                                        function showSwal() {
+                                            Swal.fire({
+                                                title: "Any Issue",
+                                                html: `
+                                                    <p style="text-align: justify;">
+                                                        <span style="color: red; font-weight: bold;">Note:</span> 
+                                                        Something went wrong ? 
+                                                        Press <strong>Ctrl + Fn + F5</strong> to refresh.
+                                                    </p>
+                                                `,
+                                                icon: "question",
+                                            });
+                                        }
+                                    </script>
+                                    <br>
+                                    <br>
+                                    <table class="table opening_hours" style="width: 500px; border: none !important;">
+                                        <tbody>
+                                            {% for hours in opening_hours %}
+                                            <tr id="hour-{{hours.id}}">
+                                                {% if hours.is_holiday %} 
+                                                    <td class="text-danger"><b>{{hours}}</b></td>
+                                                    <td class="text-danger"> <b>{{hours.from_hours}} - {{hours.to_hours}} &nbsp;(Closed)</b></td>
+                                                {% else %} 
+                                                    <td class="text-success"><b>{{hours}}</b></td>
+                                                    <td class="text-success"><b>{{hours.from_hours}} - {{hours.to_hours}}</b></td>
+                                                {% endif %}
+                                                <td><b><a href="#" class="text-success remove_hour" data-url="{% url 'opening-hours-delete' hours.id%}">Remove</a></b></td>
+                                            </tr>
+                                                  
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    
+                                    <form action="{% url 'opening-hours-add' %}" id="opening_hours">
+
+                                        {% csrf_token %}
+                                        
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                Day
+                                                {{form.day}}
+                                            </div>
+                                            <div class="col-md-2">
+                                                From hours:
+                                                {{form.from_hours}}
+                                            </div>
+                                            <div class="col-md-2">
+                                                To hours:
+                                                {{form.to_hours}}
+                                            </div>
+                                            
+                                            <div class="col-md-3">
+                                                
+                                                {{form.is_holiday}} Set as Closed
+                                                
+                                            </div>
+                                             <div class="col-md-2">
+                                                <input type="hidden" value="{% url 'opening-hours-add' %}" id="add_hour_url">
+                                                <button type="submit" class="btn btn-success add_hour">&nbsp; Add Hours</button>
+                                             </div>
+                                        </div>
+                                    </form>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Main Section End -->
+
+
+{% endblock %}

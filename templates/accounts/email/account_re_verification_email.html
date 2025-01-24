@@ -1,0 +1,110 @@
+{% autoescape off %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml" lang="en">
+
+<head>
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+  <meta property="og:title" content="Email template">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style type="text/css">
+    body {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Lato', sans-serif;
+      background-color: #f5f8fa;
+      color: #33475b;
+    }
+
+    #email {
+      max-width: 600px;
+      margin: 20px auto;
+      background-color: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+      text-align: center;
+      padding: 20px;
+      background-color: #33475B;
+    }
+
+    .header img {
+      max-width: 200px;
+    }
+
+    .content {
+      padding: 30px;
+    }
+
+    .content h2 {
+      color: #c33332;
+      font-weight: 700;
+    }
+
+    .content p {
+      line-height: 1.6;
+    }
+
+    .activate-btn {
+      display: inline-block;
+      background-color: #c33332;
+      color: #ffffff;
+      padding: 12px 24px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+      border-radius: 4px;
+      text-decoration: none;
+      margin: 20px auto;
+    }
+
+    .footer {
+      background-color: #33475B;
+      text-align: center;
+      padding: 15px;
+      color: #ffffff;
+    }
+
+    .footer a {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 700;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="email">
+    <!-- Header Section -->
+    <div class="header">
+      <img alt="Logo" src="https://rathank.com/foodonline/logo/logo.png">
+    </div>
+
+    <!-- Content Section -->
+    <div class="content">
+      <h2>Hi {{ user.first_name }},</h2>
+      <p>Thank you for joining FoodOnline! Please click the button below to confirm your email address and activate your account.</p>
+
+      <h2 style="text-align: center;">Activate Your Account</h2>
+      <p style="text-align: center;">Please verify your email address to activate your account.</p>
+
+      <div style="text-align: center;">
+        <a href="http://{{ domain }}{% url 'activate' uidb64=uid token=token %}" class="activate-btn">Re-Activate Now</a>
+      </div>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer">
+      <p>&copy; {% now "Y" %} FoodOnline Marketplace, All Rights Reserved.</p>
+      <a href="#">Visit Website</a>
+    </div>
+  </div>
+</body>
+
+</html>
+{% endautoescape %}

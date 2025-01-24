@@ -1,0 +1,48 @@
+/* Animation for showing and hiding the notification */
+@keyframes show-toast {
+    0% { top: -100%; opacity: 0; }          /* Start hidden and transparent */
+    20% { top: 65px; opacity: 1; }          /* Slide into view */
+    80% { top: 65px; opacity: 1; }          /* Stay in view */
+    100% { top: -100%; opacity: 0; }        /* Slide out of view */
+}
+
+/* Notification styles */
+.alert-notification {
+    position: fixed;                       /* Fixed position to stay at the top */
+    top: -100%;                             /* Initially hidden */
+    right: 20px;                           /* Position from the right */
+    animation: show-toast 3.5s ease-in-out; /* Apply animation */
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;                         /* Keep on top of other content */
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    text-align: center;
+    background-color: #f8d7da;             /* Default background color (for error alerts) */
+    color: #721c24;                        /* Default text color (for error alerts) */
+}
+
+/* Success Alert */
+.alert-notification.alert-success {
+    background-color: #d4edda;             /* Green background for success */
+    color: #155724;                        /* Dark green text */
+}
+
+/* Info Alert */
+.alert-notification.alert-info {
+    background-color: #d1ecf1;             /* Blue background for info */
+    color: #0c5460;                        /* Dark blue text */
+}
+
+/* Close button styles */
+.alert-notification .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: 16px;
+    cursor: pointer;
+}

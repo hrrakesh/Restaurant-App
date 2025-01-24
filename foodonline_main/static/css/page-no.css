@@ -1,0 +1,21 @@
+.pagination .page-link {
+    background-color: #f9f5f5;  
+    color: rgb(21, 21, 21);  
+    border: 1px solid #0056b3;  /* Dark blue border */
+    font-weight: bold;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #f9f5f5;   
+    border-color: rgb(21, 21, 21);
+}
+
+.pagination .page-link:hover {
+    background-color: #f9f5f5; 
+    color: rgb(21, 21, 21);
+    text-decoration: none;
+}
+
+.pagination .page-item:hover .page-link {
+    background-color: #f6f8fa;  
+}
